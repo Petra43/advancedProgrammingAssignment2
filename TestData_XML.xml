@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<data>
+    <user EMPID="G007">
+        <gender>M</gender>
+        <age>26</age>
+        <sales>123</sales>
+		<BMI>Normal</BMI>
+        <salary>45000</salary>
+        <birthday>25/11/1991</birthday>		
+	</user>
+	<user EMPID="F345">
+        <gender>M</gender>
+        <age>25</age>
+        <sales>421</sales>
+		<BMI>Normal</BMI>
+        <salary>98000</salary>
+        <birthday>25/11/1992</birthday>		
+	</user>
+	<user EMPID="P998">
+        <gender>F</gender>
+        <age>24</age>
+        <sales>678</sales>
+		<BMI>Normal</BMI>
+        <salary>22000</salary>
+        <birthday>25/11/1993</birthday>		
+	</user>
+</data>

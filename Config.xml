@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<data>
+	<user>AlexTrumic</user>
+	<errorFile>C:\Users\Alexander\Desktop\ADPR_Ass1\ErrorLog.txt</errorFile>
+	<database>
+		<location>SomeLocation</location>
+		<username>SomeUserName</username>
+		<password>SomePassword</password>
+	</database>
+</data>
