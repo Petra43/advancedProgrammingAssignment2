@@ -133,3 +133,9 @@ class Model_Handler():
         emp = Employee(empid, gender, age, sales, bmi, salary, birthday)
 
         self.all_My_Employees[empid] = emp
+        
+    def get_employee_data(self, valData, prompt, firstRun):
+        if firstRun == False:
+            print(valData[1])
+        result = input("Employee's " + prompt)
+        return result
