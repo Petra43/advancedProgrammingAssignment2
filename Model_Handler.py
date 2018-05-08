@@ -95,10 +95,12 @@ class Model_Handler():
         val = self.my_validator
         c = self.clean
 
-        empid = c.clean_empid(input("employee id number e.g. A102: "))
-        while val.val_empid(self.all_My_Employees, empid)[0] == False:
-            print('invalid ID try again')
-            empid = input("employee id number e.g. A102: ")
+        prompt = "id number e.g. A102: "
+        empid = ""
+        firstRun = True
+        while not val.val_empid(self.all_My_Employees, empid)[0]:
+            empid = self.get_employee_data(val.val_empid(self.all_My_Employees, empid), prompt, firstRun)
+            firstRun = False
 
         gender = c.clean_gender(input("employee's gender M or F: "))
         while val.val_gender(gender) == False:
@@ -133,7 +135,7 @@ class Model_Handler():
         emp = Employee(empid, gender, age, sales, bmi, salary, birthday)
 
         self.all_My_Employees[empid] = emp
-        
+
     def get_employee_data(self, valData, prompt, firstRun):
         if firstRun == False:
             print(valData[1])
