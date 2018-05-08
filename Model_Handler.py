@@ -66,7 +66,6 @@ class Model_Handler():
             bmi = emp.my_bmi
             salary = str(emp.my_salary)
             birthday = emp.my_birthday
-            #print(empid + ', ' + gender + ', ' + age + ', ' +  sales + ', ' + bmi + ', '  + salary + ', ' + birthday )
             self.my_database.save_employee(empid, gender, age, sales, bmi, salary, birthday)
 
     # Ryan Parker
@@ -95,27 +94,22 @@ class Model_Handler():
     def add_employee(self):
         val = self.my_validator
         c = self.clean
-        empid = ""
-        gender = ""
-        age = 0
-        sales = 0
-        bmi = ""
-        salary = 0
-        birthday = ""
 
-        empid = c.clean_empid(input("employee id number e.g. A102: "))
-        while val.val_empid(self.all_My_Employees, empid)[0] == False:
-            print('invalid ID try again')
-            empid = input("employee id number e.g. A102: ")
+        prompt = "id number e.g. A102: "
+        empid = ""
+        firstRun = True
+        while not val.val_empid(self.all_My_Employees, empid)[0]:
+            empid = self.get_employee_data(val.val_empid(self.all_My_Employees, empid), prompt, firstRun)
+            firstRun = False
 
         gender = c.clean_gender(input("employee's gender M or F: "))
         while val.val_gender(gender) == False:
             print('invalid gender try again')
             gender = input("employee's gender M or F: ")
 
-        result = val.Validate_Age(input("employee's age: "))
-        while result[0] == False:
-            print(result[1])
+        age = val.Validate_Age(input("employee's age: "))
+        while age[0] == False:
+            print(age[1])
             age = input("employee's age: ")
 
         sales = input("number of sales employee has made (3 digit number): ")
@@ -141,3 +135,9 @@ class Model_Handler():
         emp = Employee(empid, gender, age, sales, bmi, salary, birthday)
 
         self.all_My_Employees[empid] = emp
+
+    def get_employee_data(self, valData, prompt, firstRun):
+        if firstRun == False:
+            print(valData[1])
+        result = input("Employee's " + prompt)
+        return result
