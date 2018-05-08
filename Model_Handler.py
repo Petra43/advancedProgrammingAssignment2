@@ -66,7 +66,6 @@ class Model_Handler():
             bmi = emp.my_bmi
             salary = str(emp.my_salary)
             birthday = emp.my_birthday
-            #print(empid + ', ' + gender + ', ' + age + ', ' +  sales + ', ' + bmi + ', '  + salary + ', ' + birthday )
             self.my_database.save_employee(empid, gender, age, sales, bmi, salary, birthday)
 
     # Ryan Parker
@@ -95,49 +94,63 @@ class Model_Handler():
     def add_employee(self):
         val = self.my_validator
         c = self.clean
+
         empid = ""
+        prompt = "id number e.g. A102: "
+        first_run = True
+        while not val.val_empid(self.all_My_Employees, empid)[0]:
+            empid = self.get_employee_data(val.val_empid(self.all_My_Employees, c.clean_empid(empid)), prompt, first_run)
+            first_run = False
+
         gender = ""
-        age = 0
-        sales = 0
+        prompt = "gender M or F: "
+        first_run = True
+        while not val.val_gender(gender)[0]:
+            gender = self.get_employee_data(val.val_gender(c.clean_gender(gender)), prompt, first_run)
+            first_run = False
+
+
+        age = ""
+        prompt = "age: "
+        first_run = True
+        while not val.Validate_Age(age)[0]:
+            age = self.get_employee_data(val.Validate_Age(age), prompt, first_run)
+            first_run = False
+
+        sales = ""
+        prompt = "number of sales made (3 digit number): "
+        first_run = True
+        while not val.Validate_Sales(sales)[0]:
+            data = self.get_employee_data(val.Validate_Sales(sales), prompt, first_run)
+            first_run = False
+
         bmi = ""
-        salary = 0
+        prompt = "bmi (Normal, Overweight, Obesity, or Underweight): "
+        first_run = True
+        while not val.val_bmi(bmi)[0]:
+            bmi = self.get_employee_data(val.val_bmi(c.clean_bmi(bmi)), prompt, first_run)
+            first_run = False
+
+        salary = ""
+        # this keeped displaying an erorr to the user and i don't understand how its validator works to fix it
+        #prompt = "salary(5 digit number): "
+        #first_run = True
+        #while not val.Validate_Salary(salary) :
+        #    salary = self.get_employee_data(val.Validate_Salary(salary), prompt, first_run)
+        #   first_run = False
+
         birthday = ""
-
-        empid = c.clean_empid(input("employee id number e.g. A102: "))
-        while val.val_empid(self.all_My_Employees, empid)[0] == False:
-            print('invalid ID try again')
-            empid = input("employee id number e.g. A102: ")
-
-        gender = c.clean_gender(input("employee's gender M or F: "))
-        while val.val_gender(gender) == False:
-            print('invalid gender try again')
-            gender = input("employee's gender M or F: ")
-
-        result = val.Validate_Age(input("employee's age: "))
-        while result[0] == False:
-            print(result[1])
-            age = input("employee's age: ")
-
-        sales = input("number of sales employee has made (3 digit number): ")
-        while val.Validate_Sales(sales) == False:
-            print('invalid sales try again: ')
-            sales = input("number of sales employee has made (3 digit number): ")
-
-        bmi = c.clean_bmi(input("employee's bmi (Normal, Overweight, Obesity, or Underweight): "))
-        while val.val_bmi(bmi) == False:
-            print('invalid bmi try again: ')
-            bmi = input("employee's bmi (Normal, Overweight, Obesity, or Underweight): ")
-
-        salary = input("employee's salary(5 digit number): ")
-        while val.Validate_Salary(salary) == False:
-            print('invalid salary try again: ')
-            salary = input("employee's salary(5 digit number): ")
-
-        birthday = c.Clean_Birthday(input("employee's birthday DD-MM-YYYY: "))
-        while val.Validate_Birthday(birthday, age) == False:
-            print('invalid bithday try again: ')
-            birthday = input("employee's birthday DD-MM-YYYY: ")
+        prompt = "birthday DD-MM-YYYY: "
+        first_run = True
+        while not val.Validate_Birthday(birthday, age)[0]:
+            birthday = self.get_employee_data(val.Validate_Birthday(birthday, age), prompt, first_run)
+            first_run = False
 
         emp = Employee(empid, gender, age, sales, bmi, salary, birthday)
-
         self.all_My_Employees[empid] = emp
+
+    def get_employee_data(self, valData, prompt, first_run):
+        if first_run == False:
+            print(valData[1])
+        result = input("Employee's " + prompt)
+        return result

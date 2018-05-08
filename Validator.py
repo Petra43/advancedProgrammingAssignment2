@@ -12,12 +12,14 @@ class Validator():
             else:
                 error = 'frist charater must be alhpabetical'
                 return False, error
+
             for x in data[1]:
                 if x.isdigit():
                     pass
                 else:
                     error = 'last 3 charaters in empid must be numbers'
                     return False, error
+
             for emp in employees.values():
                 if emp.my_empid != data:
                     pass
@@ -68,13 +70,14 @@ class Validator():
     #Kate Pham
     def Validate_Sales(self, Given_Sales):
         #check if the sales within range
+        # how dose this code even work?
         pattern = re.compile(r'\d{3}')
         if pattern.match(Given_Sales):
             return True
         else:
             e = "Sales value must be an interger"
             return Given_Sales, e
-        
+
     # Ryan Parker
     def val_bmi(self, data):
         if data == 'Normal' or data == 'Overweight' or data == 'Obesity' or data == 'Underweight':
